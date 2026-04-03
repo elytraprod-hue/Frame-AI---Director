@@ -1,0 +1,10 @@
+{
+  "name": "frame-ai-director",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd frame-ai-landing && npm run build",
+    "install": "cd frame-ai-landing && npm install"
+  },
+  "description": "Frame.AI - Director Platform"
+}
