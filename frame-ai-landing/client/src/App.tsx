@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { ModalErrorBoundary } from "./components/ModalErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AppProvider, useApp } from "./contexts/AppContext";
 import Home from "./pages/Home";
@@ -79,10 +80,16 @@ function App() {
             <CustomCursor />
             <Toaster />
             <Router />
-            {/* Modals */}
-            <ContactModal />
-            <CheckoutModal />
-            <DemoModal />
+            {/* Modals - Wrapped in Error Boundaries */}
+            <ModalErrorBoundary modalName="ContactModal">
+              <ContactModal />
+            </ModalErrorBoundary>
+            <ModalErrorBoundary modalName="CheckoutModal">
+              <CheckoutModal />
+            </ModalErrorBoundary>
+            <ModalErrorBoundary modalName="DemoModal">
+              <DemoModal />
+            </ModalErrorBoundary>
           </TooltipProvider>
         </AppProvider>
       </ThemeProvider>

@@ -6,13 +6,21 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { CheckoutForm } from "@/components/forms/CheckoutForm";
 import { useApp } from "@/contexts/AppContext";
+import { useCallback } from "react";
 
 export function CheckoutModal() {
   const { modals, closeModal } = useApp();
   const isOpen = modals.checkout;
 
+  // Memoize callback to prevent rapid state changes
+  const handleOpenChange = useCallback((open: boolean) => {
+    if (!open) {
+      closeModal("checkout");
+    }
+  }, [closeModal]);
+
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && closeModal("checkout")}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-2xl bg-gray-900 border border-gray-800 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-white">Finalizar Compra</DialogTitle>

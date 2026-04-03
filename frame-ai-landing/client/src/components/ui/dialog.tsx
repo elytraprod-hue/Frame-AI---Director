@@ -62,7 +62,23 @@ function DialogTrigger({
 function DialogPortal({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
-  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
+  const [container, setContainer] = React.useState<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    // Ensure the modals container exists
+    const modalRoot = document.getElementById("modals-root");
+    if (!modalRoot) {
+      console.warn("Dialog: modals-root container not found");
+      return;
+    }
+    setContainer(modalRoot);
+  }, []);
+
+  if (!container) {
+    return null;
+  }
+
+  return <DialogPrimitive.Portal data-slot="dialog-portal" container={container} {...props} />;
 }
 
 function DialogClose({

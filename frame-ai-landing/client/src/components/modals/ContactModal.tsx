@@ -6,6 +6,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { useApp } from "@/contexts/AppContext";
+import { useCallback } from "react";
 
 interface ContactModalProps {
   type?: "contact" | "demo" | "support";
@@ -21,8 +22,15 @@ export function ContactModal({
   const { modals, closeModal } = useApp();
   const isOpen = modals.contact;
 
+  // Memoize callback to prevent rapid state changes
+  const handleOpenChange = useCallback((open: boolean) => {
+    if (!open) {
+      closeModal("contact");
+    }
+  }, [closeModal]);
+
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && closeModal("contact")}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md bg-gray-900 border border-gray-800">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white">{title}</DialogTitle>

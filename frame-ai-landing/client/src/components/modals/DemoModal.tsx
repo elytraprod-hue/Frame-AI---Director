@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useApp } from "@/contexts/AppContext";
 import { Loader2 } from "lucide-react";
+import { useCallback } from "react";
 
 export function DemoModal() {
   const { modals, closeModal, submitDemo, isLoading } = useApp();
@@ -20,6 +21,13 @@ export function DemoModal() {
       email: "",
     },
   });
+
+  // Memoize callback to prevent rapid state changes
+  const handleOpenChange = useCallback((open: boolean) => {
+    if (!open) {
+      closeModal("demo");
+    }
+  }, [closeModal]);
 
   const onSubmit = async (data: { name: string; email: string }) => {
     try {
@@ -32,7 +40,7 @@ export function DemoModal() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && closeModal("demo")}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md bg-gray-900 border border-gray-800">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white">Agendar Demo</DialogTitle>
