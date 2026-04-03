@@ -1,4 +1,4 @@
-export default async function handler(req: any, res: any) {
+export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -25,7 +25,7 @@ export default async function handler(req: any, res: any) {
   }
 
   // Define prompts based on toolId
-  const prompts: Record<string, string> = {
+  const prompts = {
     'roteiro': 'Generate a detailed screenplay script in Portuguese based on the following description. Include scene headings, action lines, character names, and dialogue. Make it professional and cinematic.',
     '01': 'Generate a screenplay script based on: ',
     'callsheet': 'Create a professional call sheet for a film production based on the following project description. Include date, call time, locations, cast, crew, and schedule.',
@@ -72,7 +72,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const data = await response.json();
-    const content = data.choices[0]?.message?.content;
+    const content = data.choices?.[0]?.message?.content;
 
     if (!content) {
       console.error('No content in response:', data);
@@ -80,7 +80,7 @@ export default async function handler(req: any, res: any) {
     }
 
     res.status(200).json({ content });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error calling Groq:', error.message);
     res.status(500).json({ 
       error: 'Internal server error',
