@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm --prefix frame-ai-landing run build",
+  "outputDirectory": "frame-ai-landing/dist/public",
+  "regions": ["iad1"]
+}

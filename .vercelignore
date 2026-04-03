@@ -1,0 +1,8 @@
+.git
+.gitignore
+node_modules
+*.md
+DEPLOYMENT_SUMMARY.md
+README.md
+README_DEPLOYMENT.md
+.env.example
