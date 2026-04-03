@@ -1,12 +1,27 @@
 {
   "version": 2,
-  "framework": null,
-  "buildCommand": "cd frame-ai-landing && npm run build",
-  "outputDirectory": "frame-ai-landing/dist",
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs18.x",
-      "maxDuration": 60
+  "builds": [
+    {
+      "src": "api/chat.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "frame-ai-landing/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist"
+      }
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/api/chat",
+      "dest": "/api/chat"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
