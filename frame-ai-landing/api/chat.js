@@ -1,10 +1,8 @@
-export default async function handler(req, res) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
+module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     return res.status(200).end();
   }
 
@@ -24,7 +22,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Server configuration error - API key missing' });
   }
 
-  // Define prompts based on toolId
   const prompts = {
     'roteiro': 'Generate a detailed screenplay script in Portuguese based on the following description. Include scene headings, action lines, character names, and dialogue. Make it professional and cinematic.',
     '01': 'Generate a screenplay script based on: ',
@@ -44,8 +41,6 @@ export default async function handler(req, res) {
   const fullPrompt = `${promptKey} ${input}`;
 
   try {
-    console.log(`Processing request for toolId: ${toolId}`);
-    
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -87,4 +82,4 @@ export default async function handler(req, res) {
       message: error.message
     });
   }
-}
+};
