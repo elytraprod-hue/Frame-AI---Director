@@ -1,9 +1,0 @@
-{
-  "name": "frame-ai-director",
-  "version": "1.0.0",
-  "private": true,
-  "workspaces": [
-    "frame-ai-landing"
-  ],
-  "description": "Frame.AI - Director Platform"
-}
