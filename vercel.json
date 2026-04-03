@@ -9,7 +9,7 @@
       "src": "frame-ai-landing/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run build",
+        "buildCommand": "npm run build --prefix ../",
         "outputDirectory": "dist"
       }
     }
@@ -20,9 +20,12 @@
       "dest": "/api/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/(?!api)(.*)",
       "dest": "/index.html",
       "status": 200
     }
-  ]
+  ],
+  "env": {
+    "GROQ_API_KEY": "@groq_api_key"
+  }
 }
