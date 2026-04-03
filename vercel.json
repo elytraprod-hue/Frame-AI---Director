@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "buildCommand": "cd frame-ai-landing && npm run build",
+  "outputDirectory": "frame-ai-landing/dist",
+  "env": {
+    "GROQ_API_KEY": "@groq_api_key"
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/frame-ai-landing/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
