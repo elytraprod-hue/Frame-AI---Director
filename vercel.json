@@ -1,4 +1,0 @@
-{
-  "buildCommand": "cd frame-ai-landing && npm run build",
-  "outputDirectory": "frame-ai-landing/dist/public"
-}
