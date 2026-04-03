@@ -2,8 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "frame-ai-landing/api/chat.js",
-      "use": "@vercel/node"
+      "src": "frame-ai-landing/api/**/*.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeDirs": ["frame-ai-landing/api"]
+      }
     },
     {
       "src": "frame-ai-landing/package.json",
@@ -16,11 +19,11 @@
   ],
   "routes": [
     {
-      "src": "/api/chat",
-      "dest": "/frame-ai-landing/api/chat"
+      "src": "/api/(.*)",
+      "dest": "/frame-ai-landing/api/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/(?!api)(.*)",
       "dest": "/index.html"
     }
   ]
