@@ -1,31 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "frame-ai-landing/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "npm run build --prefix ../",
-        "outputDirectory": "dist"
-      }
+  "framework": null,
+  "buildCommand": "cd frame-ai-landing && npm run build",
+  "outputDirectory": "frame-ai-landing/dist",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x",
+      "maxDuration": 60
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(?!api)(.*)",
-      "dest": "/index.html",
-      "status": 200
-    }
-  ],
-  "env": {
-    "GROQ_API_KEY": "@groq_api_key"
   }
 }
